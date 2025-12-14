@@ -1,0 +1,149 @@
+:root {
+  --bg-dark: #0f172a;
+  --bg-light: #020617;
+  --primary: #38bdf8;
+  --secondary: #22c55e;
+  --text-main: #e5e7eb;
+  --text-muted: #94a3b8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, var(--bg-dark), var(--bg-light));
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 90%;
+  max-width: 1100px;
+  text-align: center;
+  animation: fadeIn 1.5s ease forwards;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: var(--primary);
+}
+
+.sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+}
+
+.icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+  animation: float 3s ease-in-out infinite;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+/* توضیحات مخفی */
+.details {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.6s ease, opacity 0.4s ease;
+  margin-top: 1rem;
+  text-align: right;
+}
+
+input:checked ~ .details {
+  max-height: 500px;
+  opacity: 1;
+}
+
+/* افکت کلیک آیکون */
+input:checked + label {
+  transform: scale(1.2) rotate(5deg);
+  transition: transform 0.3s ease;
+}
+
+.hardware .icon {
+  color: var(--primary);
+}
+
+.software .icon {
+  color: var(--secondary);
+}
+
+p {
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.details ul {
+  margin: 1rem 0;
+  padding-right: 1.2rem;
+}
+
+.details li {
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+}
+
+/* فوتر */
+.footer {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2rem;
+  }
+}
