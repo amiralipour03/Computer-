@@ -1,163 +1,143 @@
 :root {
-  --bg1: #020617;
-  --bg2: #0f172a;
-  --primary: #38bdf8;
-  --secondary: #22c55e;
-  --text-main: #e5e7eb;
-  --text-muted: #94a3b8;
+  --bg: #050816;
+  --hw: #7c7cff;
+  --hw-glow: rgba(124,124,255,0.6);
+  --sw: #2dd4bf;
+  --sw-glow: rgba(45,212,191,0.6);
+  --text: #e5e7eb;
+  --muted: #9ca3af;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: sans-serif;
+  font-family: Vazirmatn, sans-serif;
 }
 
 body {
-  background: radial-gradient(circle at top, var(--bg2), var(--bg1));
-  color: var(--text-main);
+  background: radial-gradient(circle at top, #0b1028, var(--bg));
+  color: var(--text);
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .container {
   width: 92%;
   max-width: 1200px;
-  text-align: center;
-  animation: pageEnter 1.5s ease;
+  padding: 3rem 0;
+  animation: pageIn 1.4s ease;
 }
 
 h1 {
-  margin-bottom: 3rem;
+  text-align: center;
+  margin-bottom: 4rem;
   font-size: 2.6rem;
-  color: var(--primary);
 }
 
 .sections {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 3rem;
 }
 
 .card {
   background: rgba(255,255,255,0.04);
-  padding: 2.5rem;
-  border-radius: 20px;
+  border-radius: 24px;
+  padding: 3rem;
   position: relative;
   overflow: hidden;
-  transition: transform 0.6s ease, box-shadow 0.6s ease;
+  transition: transform 0.8s ease;
 }
 
-.card::after {
+/* Glow Layer */
+.card::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.15), transparent);
-  transform: translateX(-120%);
+  inset: -2px;
+  opacity: 0;
+  transition: opacity 0.8s ease;
 }
 
-.card:hover::after {
-  animation: shine 1.2s ease;
+.hardware::before {
+  background: linear-gradient(135deg, transparent, var(--hw-glow), transparent);
+}
+
+.software::before {
+  background: linear-gradient(135deg, transparent, var(--sw-glow), transparent);
+}
+
+.card:hover::before {
+  opacity: 1;
 }
 
 .card:hover {
-  transform: translateY(-10px) scale(1.03);
-  box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+  transform: translateY(-12px) scale(1.03);
 }
 
+/* Icon */
 .icon {
-  font-size: 3.2rem;
-  margin-bottom: 1rem;
+  font-size: 3.4rem;
   display: inline-block;
-  animation: floatRotate 4s ease-in-out infinite;
-}
-
-.clickable {
   cursor: pointer;
+  animation: floatPulse 4s infinite;
 }
 
-.hardware .icon {
-  color: var(--primary);
+.hardware .icon { color: var(--hw); }
+.software .icon { color: var(--sw); }
+
+.intro {
+  color: var(--muted);
+  margin: 1rem 0 1.5rem;
 }
 
-.software .icon {
-  color: var(--secondary);
-}
-
-.short {
-  color: var(--text-muted);
-  margin-bottom: 1rem;
-}
-
+/* Details Reveal */
 .details {
   max-height: 0;
   opacity: 0;
+  transform: translateY(30px);
   overflow: hidden;
-  transform: translateY(20px);
-  transition: all 0.8s ease;
-  text-align: right;
+  transition: all 1s ease;
 }
 
 input:checked ~ .details {
-  max-height: 1000px;
+  max-height: 1200px;
   opacity: 1;
   transform: translateY(0);
 }
 
+/* Text */
 .details h3 {
-  margin: 1.2rem 0 0.5rem;
-  color: var(--text-main);
+  margin: 1.5rem 0 0.5rem;
 }
 
 .details ul {
-  padding-right: 1.2rem;
   margin: 1rem 0;
+  padding-right: 1.2rem;
 }
 
 .details li {
   margin-bottom: 0.7rem;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
-.footer {
-  margin-top: 4rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255,255,255,0.15);
+footer {
+  margin-top: 5rem;
+  text-align: center;
   font-size: 0.9rem;
-  color: var(--text-muted);
+  color: var(--muted);
 }
 
 /* Animations */
-@keyframes pageEnter {
-  from {
-    opacity: 0;
-    transform: scale(0.95) translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
+@keyframes floatPulse {
+  0%,100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-14px) scale(1.08); }
 }
 
-@keyframes floatRotate {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-12px) rotate(6deg);
-  }
-}
-
-@keyframes shine {
-  from {
-    transform: translateX(-120%);
-  }
-  to {
-    transform: translateX(120%);
-  }
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Responsive */
@@ -166,3 +146,4 @@ input:checked ~ .details {
     font-size: 2rem;
   }
 }
+
